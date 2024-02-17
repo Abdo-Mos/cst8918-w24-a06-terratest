@@ -33,4 +33,10 @@ func TestAzureLinuxVMCreation(t *testing.T) {
 
 	// Confirm VM exists
 	assert.True(t, azure.VirtualMachineExists(t, vmName, resourceGroupName, subscriptionID))
+	
+	// Confirm the NiC exists 
+	assert.NotEmpty(t, azure.GetVirtualMachineNics(t, vmName, resourceGroupName, subscriptionID))
+	
+	// Confirm the VM image is the correct verison
+	assert.Equal(t, azure.GetVirtualMachineImage(t, vmName, resourceGroupName, subscriptionID).Version, "latest")
 }
